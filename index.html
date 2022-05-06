@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" rel="stylesheet" />
+    <title>Gamer153</title>
+</head>
+
+<body>
+    <script>
+        $('body').terminal({
+            help: function (...args) {
+                switch (args[0]) {
+                    case "me":
+                        if (args[1] == "now") {
+                            this.echo("I really can't do anything!")
+                            break;
+                        }
+                        this.echo("Sorry, you should consult a professional for that.")
+                        break;
+                
+                    default:
+                        this.echo("Help:\n- about <me|you|*>")
+                        break;
+                }
+            },
+            about: function (...args) {
+                switch (args[0]) {
+                    case "me":
+                        this.echo(
+                            "Hi! I am Gamer153, I'm really interested in coding (<a href=\"https://github.com/Gamer153\" target=\"_blank\">my GitHub</a>) and do some other stuff too.<br>"
+                                + "I'm also part of the <a href=\"https://smpearth.com\" target=\"_blank\">SMPEarth</a> staff team.<br>"
+                                + "I'm from Germany and consider myself to be quite funny, as evidenced by some of the commands on here.",
+                            {raw: true}
+                        )
+                        break;
+                    case "you":
+                        var OSName="Unknown OS";
+                        if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+                        if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+                        if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+                        if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+                        var ext = "";
+                        if (OSName == "Windows") ext = "Why not try Linux?";
+                        if (OSName == "Linux") ext = "Why not use Windows for easier everything?"
+                        if (OSName == "Mac") ext = "Never used that before. Don't have enough money."
+                        if (OSName == "Unix") ext = "Why."
+                        if (OSName == "Unknown OS") ext = "What!?"
+                        this.echo(
+                            "Hm. I don't really know anything about you, except that you seem to use " + OSName + ".\n" + ext
+                        )
+                
+                    default:
+                        break;
+                }
+            }
+        }, {
+            checkArity: false,
+            greetings: 'Welcome to gamer153.dev!\nYou can reach me at gamer153@gamer153.dev.\n\nTry out some commands, like:\n- help\n- about me',
+            completion: ["help", "about"]
+        });
+    </script>
+</body>
+
+</html>
