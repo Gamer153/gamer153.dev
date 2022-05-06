@@ -13,6 +13,8 @@
 
 <body>
     <script>
+        var counter = 0;
+        var lsTryAgain = false;
         $('body').terminal({
             help: function (...args) {
                 switch (args[0]) {
@@ -25,7 +27,7 @@
                         break;
                 
                     default:
-                        this.echo("Help:\n- about <me|you|*>")
+                        this.echo("Help:\n- about <me|you|*>\n- ls\n- echo [*]\n- joke\n- help")
                         break;
                 }
             },
@@ -54,15 +56,40 @@
                         this.echo(
                             "Hm. I don't really know anything about you, except that you seem to use " + OSName + ".\n" + ext
                         )
-                
+                        break;
+                    case undefined:
+                        this.echo("About who? About you or me?")
+                        break;
+                    case "us":
+                        this.echo("What? Who are we?")
+                        break;
                     default:
+                        this.echo("Hm. I don't know anything about " + args + ".")
                         break;
                 }
+            },
+            joke: function (...args) {
+                this.echo("That's not available. And it never will be, what do you expect from me? Good jokes?")
+            },
+            ls: function () {
+                if (!lsTryAgain) {
+                    this.echo("Uhm. This is not a shell or anything! Please try again.")
+                    lsTryAgain = true;
+                } else {
+                    this.echo("Still not a shell.\n\nFiles in directory <?>:\na is not shell still this")
+                }
+            },
+            echo: function (...args) {
+                if (Math.random() <= 0.1) {
+                    this.echo("The Echo is currently not available. Please try again.")
+                    return
+                }
+                this.echo("" + args.join(" ").replaceAll("%PWD%", ".").replaceAll("%JOKE%", "you").replaceAll("%HOME%", "~").replaceAll("%PATH%", window.location.href))
             }
         }, {
             checkArity: false,
-            greetings: 'Welcome to gamer153.dev!\nYou can reach me at gamer153@gamer153.dev.\n\nTry out some commands, like:\n- help\n- about me',
-            completion: ["help", "about"]
+            greetings: 'Welcome to gamer153.dev!\nYou can reach out to me via gamer153@gamer153.dev.\n\nTry out some commands, like:\n- help\n- about me\n',
+            completion: ["help", "about", "ls", "joke"]
         });
     </script>
 </body>
